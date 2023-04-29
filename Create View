@@ -1,0 +1,24 @@
+
+
+-- --------------Create Views--------------------------------
+create view ViewsName as
+select *
+from Table
+--where category = 1; if you want to restraint 
+
+-- a view to limit read access to only certain columns
+create view ViewsName as
+select name, category, price
+from products;
+
+-- a view that displays top 10 products that provide highest sold value
+create view top_10_ as
+select
+  top 10 p.name,
+  p.category,
+  p.price,
+  ps.quantity_sold,
+  p.price * ps.quantity_sold as sold_value
+from products p
+left join products_sold ps on p.id=ps.product_id
+order by sold_value desc;
